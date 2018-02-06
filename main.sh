@@ -40,6 +40,7 @@ applications=( $(find $arg1 -name *.app) )
         echo ""
         
         app=$(ls $filename/Contents/MacOS/)
+        info=$filename/../info.txt
         exec $filename/Contents/MacOS/$app & TASK_PID=$!
 
         echo "TASK PID: $TASK_PID"
@@ -47,6 +48,11 @@ applications=( $(find $arg1 -name *.app) )
 
         # countdown timer
         sleep $arg2
+
+        code $info
+
+        sleep 10
+
         echo "########################################"
         echo "Closing Project: $filename"
         echo "########################################"
