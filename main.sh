@@ -1,5 +1,5 @@
 #! /bin/bash
-
+# ./main.sh ./Files/ 10 ./TransitionScreen/application.macosx/TransitionScreen.app/Contents/Java/data/
 if [ $# > 0 ]
 then
     arg1="$1"
@@ -23,8 +23,9 @@ fi
 
 echo "########################################"
 echo "STARTING APPLICATION: PROCESSING ROULETE"
-echo "Location: $arg1"
-echo "Minutes:  $arg2"
+echo "Location:  $arg1"
+echo "Seconds:   $arg2"
+echo "TempFiles: $arg3"
 echo "########################################"
 echo ""
 
@@ -34,32 +35,54 @@ applications=( $(find $arg1 -name *.app) )
 # while [ 1 ]
 # do 
     for filename in ${applications[@]}; do
+
+        echo "########################################"
+        echo "STATING TRANSITION"
+        echo "########################################"
+        echo ""
+        info=$filename/../info.txt
+        cp $info $arg3/info.txt
+
+        screencapture $arg3/screenshot.jpg
+
+        exec ./TransitionScreen/application.macosx/TransitionScreen.app/Contents/MacOS/TransitionScreen & T_PID=$!
+        sleep 10
+
         echo "########################################"
         echo "Opening Project: $filename"
         echo "########################################"
         echo ""
         
         app=$(ls $filename/Contents/MacOS/)
-        info=$filename/../info.txt
         exec $filename/Contents/MacOS/$app & TASK_PID=$!
 
         echo "TASK PID: $TASK_PID"
         echo ""
 
+        # sleep 5
+
         # countdown timer
         sleep $arg2
+        
+        echo "########################################"
+        echo "STATING TRANSITION"
+        echo "########################################"
+        echo ""
+        info=$filename/../info.txt
+        cp $info $arg3/info.txt
 
-        code $info
+        screencapture $arg3/screenshot.jpg
 
+        exec ./TransitionScreen/application.macosx/TransitionScreen.app/Contents/MacOS/TransitionScreen & T_PID=$!
         sleep 10
 
         echo "########################################"
         echo "Closing Project: $filename"
         echo "########################################"
         echo ""
-        
+
         pkill $app
 
-        sleep $arg3
+        sleep 5
     done
 # done

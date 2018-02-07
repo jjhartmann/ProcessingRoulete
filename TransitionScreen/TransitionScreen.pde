@@ -7,20 +7,15 @@ int timer = 0;
 int currentAlpha = 0;
 String titleCard[];
 
-// HACK
-boolean visible = false;
-boolean isProduction = true;
 void setup() {
   //size(800, 600);
   fullScreen();
-
-  surface.setVisible(false);
     
   // Set current time in ms
   timer = millis();
   
   // Get screen shot
-  previousScreen = GetScreenshot();
+  previousScreen = loadImage(dataPath("") + "/screenshot.jpg");
   background(previousScreen.get(0,0, width, height));
   
   // Create PGraphics Buffer
@@ -39,9 +34,6 @@ void setup() {
 } 
 
 void draw() {
-  if (!visible) {
-    surface.setVisible(true);
-  }
   // Display Background
   image(previousScreen, 0, 0);
   
