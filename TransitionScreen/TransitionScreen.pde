@@ -5,6 +5,7 @@ PImage previousScreen;
 PGraphics imageBuffer;
 int timer = 0;
 int currentAlpha = 0;
+String titleCard[];
 
 // HACK
 boolean visible = false;
@@ -30,13 +31,15 @@ void setup() {
   imageBuffer.endDraw();
   
   // Get Text from info
-  if (args != null) {
-    if(args.length > 0){
-      
-    }
+  String notePath = "";
+  if (args != null && args.length > 0) {
+    notePath = args[0];
   } else {
-    println("args == null");
+    notePath = "./test/info.txt";
   }
+  
+  titleCard = loadStrings(notePath);
+  rintArray(titleCard);
 } 
 
 void draw() {
