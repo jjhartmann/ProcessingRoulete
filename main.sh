@@ -32,8 +32,8 @@ echo ""
 applications=( $(find $arg1 -name *.app) )
 # echo "${applications[@]}"
 
-# while [ 1 ]
-# do 
+while [ 1 ]
+do 
     for filename in ${applications[@]}; do
 
         echo "########################################"
@@ -82,7 +82,5 @@ applications=( $(find $arg1 -name *.app) )
         echo ""
 
         pkill $app
-
-        sleep 5
     done
-# done
+done
