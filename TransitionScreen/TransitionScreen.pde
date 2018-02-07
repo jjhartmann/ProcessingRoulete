@@ -9,12 +9,12 @@ String titleCard[];
 
 // HACK
 boolean visible = false;
-
+boolean isProduction = true;
 void setup() {
-  size(800, 600);
-  //fullScreen();
+  //size(800, 600);
+  fullScreen();
 
-  this.frame.setVisible(false);
+  surface.setVisible(false);
     
   // Set current time in ms
   timer = millis();
@@ -31,20 +31,16 @@ void setup() {
   imageBuffer.endDraw();
   
   // Get Text from info
-  String notePath = "";
-  if (args != null && args.length > 0) {
-    notePath = args[0];
-  } else {
-    notePath = "./test/info.txt";
-  }
-  
+  print("TEST WORKING DIR");
+  print(dataPath(""));
+  String notePath = dataPath("") + "/info.txt";
   titleCard = loadStrings(notePath);
-  rintArray(titleCard);
+  printArray(titleCard);
 } 
 
 void draw() {
   if (!visible) {
-    this.frame.setVisible(true);
+    surface.setVisible(true);
   }
   // Display Background
   image(previousScreen, 0, 0);
@@ -64,12 +60,26 @@ void draw() {
     PVector v2 = pathPoints.get(i + 1);
     imageBuffer.line(v1.x,v1.y,v2.x,v2.y);
   }
-  imageBuffer.endDraw();
   
+  if ( currentAlpha >= 255 )
+  {
+    imageBuffer.textSize(45);
+    imageBuffer.text(titleCard[0], width/3, height/2);
+    imageBuffer.textSize(14);
+    imageBuffer.text(titleCard[1], width/3, height/2 + 20);
+  }
+  
+  imageBuffer.endDraw();
+
   if (currentAlpha < 255 && millis() - timer >= 5000/255) {
     currentAlpha++;
     timer = millis();
   }
+  
+  if (millis() - timer >= 8000){
+     exit(); 
+  }
+
   
   // Display Image
   tint(255, currentAlpha);
