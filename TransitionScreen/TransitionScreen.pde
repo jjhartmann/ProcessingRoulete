@@ -3,11 +3,20 @@ import java.awt.*;
 ArrayList<PVector> pathPoints = new ArrayList<PVector>();
 PImage previousScreen;
 PGraphics imageBuffer;
+int timer = 0;
+int currentAlpha = 0;
+
+// HACK
+boolean visible = false;
 
 void setup() {
-  size(500, 500); 
+  size(800, 600);
   //fullScreen();
-  background(0);
+
+  this.frame.setVisible(false);
+    
+  // Set current time in ms
+  timer = millis();
   
   // Get screen shot
   previousScreen = GetScreenshot();
@@ -19,11 +28,23 @@ void setup() {
   imageBuffer.beginDraw();
   imageBuffer.background(0);
   imageBuffer.endDraw();
+  
+  // Get Text from info
+  if (args != null) {
+    if(args.length > 0){
+      
+    }
+  } else {
+    println("args == null");
+  }
 } 
 
 void draw() {
+  if (!visible) {
+    this.frame.setVisible(true);
+  }
   // Display Background
-  image(previousScreen, 0, 0)
+  image(previousScreen, 0, 0);
   
   //create the path
   pathPoints = circlePoints();
@@ -42,8 +63,13 @@ void draw() {
   }
   imageBuffer.endDraw();
   
+  if (currentAlpha < 255 && millis() - timer >= 5000/255) {
+    currentAlpha++;
+    timer = millis();
+  }
+  
   // Display Image
-  tint(255, 127);
+  tint(255, currentAlpha);
   image(imageBuffer, 0, 0);
 }
 
