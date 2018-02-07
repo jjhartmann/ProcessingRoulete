@@ -29,11 +29,13 @@ echo "TempFiles: $arg3"
 echo "########################################"
 echo ""
 
-applications=( $(find $arg1 -name *.app) )
-# echo "${applications[@]}"
+
 
 while [ 1 ]
 do 
+    applications=( $(find $arg1 -name *.app) )
+    echo "${applications[@]}"
+    
     for filename in ${applications[@]}; do
 
         echo "########################################"
