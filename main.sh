@@ -45,10 +45,10 @@ do
         info=$filename/../info.txt
         cp $info $arg3/info.txt
 
-        screencapture $arg3/screenshot.jpg
+        screencapture -x $arg3/screenshot.jpg
 
         exec ./TransitionScreen/application.macosx/TransitionScreen.app/Contents/MacOS/TransitionScreen & T_PID=$!
-        sleep 10
+        sleep 20
 
         echo "########################################"
         echo "Opening Project: $filename"
@@ -76,7 +76,7 @@ do
         screencapture $arg3/screenshot.jpg
 
         exec ./TransitionScreen/application.macosx/TransitionScreen.app/Contents/MacOS/TransitionScreen & T_PID=$!
-        sleep 10
+        sleep 20
 
         echo "########################################"
         echo "Closing Project: $filename"

@@ -40,13 +40,14 @@ void draw() {
   //create the path
   pathPoints = circlePoints();
   
-  for(int j=0;j < 6;j++){
+  for(int j=0;j < 2;j++){
     pathPoints = complexifyPath(pathPoints);
   }
 
   //draw the path
   imageBuffer.beginDraw();
-  imageBuffer.stroke(255, 15);
+  imageBuffer.stroke(255, 50);
+  imageBuffer.strokeWeight(2);
   for(int i=0;i<pathPoints.size() -1;i++){
     PVector v1 = pathPoints.get(i);
     PVector v2 = pathPoints.get(i + 1);
